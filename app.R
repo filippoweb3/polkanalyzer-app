@@ -234,8 +234,8 @@ server <- function(input, output, session) {
   download.file("https://github.com/filippoweb3/polkanalyzer/blob/main/data/eras_data.rda?raw=true", destfile = "eras_data.rda", method = "libcurl")
   download.file("https://github.com/filippoweb3/polkanalyzer/blob/main/data/candidates.rda?raw=true", destfile = "candidates.rda", method = "libcurl")
 
-  #load("eras_data.rda")
-  #load("candidates.rda")
+  load("eras_data.rda")
+  load("candidates.rda")
 
   observeEvent(input$look.back, {
 
