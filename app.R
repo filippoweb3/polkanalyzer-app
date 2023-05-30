@@ -1,12 +1,12 @@
-#library(remotes)
-#install_github(repo = "filippoweb3/polkanalyzer")
-#library(shiny)
 library(Polkanalyzer)
 library(shinythemes)
 library(shinycssloaders)
 library(plotly)
 library(DT)
 library(dplyr)
+
+load("eras_data.rda")
+load("candidates.rda")
 
 ui <- fluidPage(
 
