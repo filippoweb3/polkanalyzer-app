@@ -1,5 +1,14 @@
-# Use this file to build the image (podman | docker)
+# Use this file to build the image (docker)
+
 # $ docker build -t polkanalyzer-app .
+
+# To run the container (podman | docker)
+
+# $ docker run --rm -p 3838:3838 polkanalyzer-app:latest
+
+# Visit http://localhost:3838/
+
+
 
 # Get shiny image
 
@@ -17,9 +26,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install required R package dependencies
 
 RUN install.r shiny \
-	shinythemes \ 
-	shinycssloaders \ 
-	plotly \ 
+	shinythemes \
+	shinycssloaders \
+	plotly \
 	DT \
 	dplyr \
 	utils \
@@ -28,7 +37,7 @@ RUN install.r shiny \
 	rjson \
 	maps \
 	countrycode
-		
+
 
 RUN echo "local(options(shiny.port = 3838, shiny.host = '0.0.0.0'))" > /usr/lib/R/etc/Rprofile.site
 
@@ -45,14 +54,6 @@ COPY App .
 EXPOSE 3838
 
 CMD ["R", "-e", "shiny::runApp('/home/App')"]
-
-
-
-
-# To run the container (podman | docker)
-# docker run --rm -p 3838:3838 polkanalyzer-app:latest
-
-# Visit http://localhost:3838/
 
 
 #docker run -it polkanalyzer-app bash
