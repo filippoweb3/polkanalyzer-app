@@ -1,32 +1,37 @@
+@font-face {
+    font-family: Unbounded-Bold;
+    src: url('Unbounded-Bold.woff2') format('woff2'), /* Modern Browsers */
+         url('Unbounded-Bold.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: Unbounded-Medium;
+    src: url('Unbounded-Medium.woff2') format('woff2'),
+         url('Unbounded-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Unbounded-Light;
+    src: url('Unbounded-Light.woff2') format('woff2'),
+         url('Unbounded-Light.ttf') format('truetype');
+}
+
 h1 {
-  src: url(Unbounded-Bold.ttf);
-  font-family: "Unbounded-Bold";
+  font-family: Unbounded-Bold;
 }
 
 h2 {
-  src: url(Unbounded-Bold.ttf);
-  font-family: "Unbounded-Medium";
+  font-family: Unbounded-Medium;
 }
 
 h3 {
-  src: url(Unbounded-Bold.ttf);
-  font-family: "Unbounded-Light";
+  font-family: Unbounded-Light;
 }
 
 * {
-  src: url(Unbounded-Bold.ttf);
-  font-family: "Unbounded-Bold";
+  font-family: Unbounded-Bold;
   color: white;
 }
-
-table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-                                  background-color: rgba(48, 48, 48, 1) !important;
-                                  }
-
-table.display.dataTable > tbody > tr.selected > *,
-table.display.dataTable > tbody > tr.odd.selected > *,
-table.display.dataTable > tbody > tr.selected:hover > *  {
-    box-shadow:
 
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
                                   background-color: rgba(48, 48, 48, 1) !important;

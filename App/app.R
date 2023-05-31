@@ -25,8 +25,7 @@ ui <- fluidPage(
   ),
 
   tags$head(
-    includeCSS("www/font.css"),
-    tags$script(src = "message-handler.js")
+    includeCSS("www/font.css")
   ),
 
   tags$style(
