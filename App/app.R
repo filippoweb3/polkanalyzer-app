@@ -61,7 +61,7 @@ ui <- fluidPage(
                        label = "Self Stake (DOT)",
                        min = 0,
                        max = 50,
-                       value = 7.5, post = "K", step = 0.1, ticks = FALSE),
+                       value = 5, post = "K", step = 0.1, ticks = FALSE),
 
            sliderInput(inputId = "total_stake",
                        label = "Total Stake (DOT)",
@@ -85,7 +85,7 @@ ui <- fluidPage(
                        label = "Max. Era Points",
                        min = 0,
                        max = round(max(eras_data$eras$era_points, na.rm = T)/10^3),
-                       value = 80, post = "K", step = 1, ticks = FALSE)
+                       value = 50, post = "K", step = 1, ticks = FALSE)
 
     ),
 
@@ -107,12 +107,12 @@ ui <- fluidPage(
                        label = "Sub-identities",
                        min = 0,
                        max = max(candidates$n_subid, na.rm = T),
-                       value = 1, step = 1, ticks = FALSE),
+                       value = 2, step = 1, ticks = FALSE),
 
            sliderInput(inputId = "n.runs",
                        label = "Sync Runs",
                        min = 1,
-                       max = 30,
+                       max = 50,
                        value = 3, step = 1, ticks = FALSE),
 
            selectInput("provider", "Exclude Provider", {
@@ -264,7 +264,7 @@ server <- function(input, output, session) {
                                                   n_active = n_active + 1,
                                                   mean_era_points = m_points,
                                                   max_era_points = max_points,
-                                                  last_active = look_back + 1))
+                                                  last_active = look_back))
 
     if(!is.null(input$provider)){
 
