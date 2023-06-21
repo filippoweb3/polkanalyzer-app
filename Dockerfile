@@ -4,10 +4,9 @@
 
 # To run the container (podman | docker)
 
-# $ docker run --rm -p 3838:3838 polkanalyzer-app:latest
+# $ docker run --rm -p 127.0.0.1:3838:3838 polkanalyzer-app:latest
 
 # Visit http://localhost:3838/
-
 
 
 # Get shiny image
@@ -39,7 +38,7 @@ RUN install.r shiny \
 	countrycode
 
 
-RUN echo "local(options(shiny.port = 3838, shiny.host = '0.0.0.0'))" > /usr/lib/R/etc/Rprofile.site
+RUN echo "local(options(shiny.port = 3838, shiny.host = '127.0.0.1'))" > /usr/lib/R/etc/Rprofile.site
 
 # Copy & install R package
 
