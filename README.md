@@ -1,6 +1,6 @@
 # Welcome to the Polkanalyzer App
 
-Polkanalyzer is a tool that allows one to easily visualize [Polkadot](https://polkadot.network/)'s NPoS data and make a fair selection of validator nodes. It is a [staking](https://wiki.polkadot.network/docs/learn-staking) tool for [nominators](https://wiki.polkadot.network/docs/learn-nominator) and [nomination pools admins](https://wiki.polkadot.network/docs/learn-nomination-pools).
+The Polkanalyzer app is a tool that allows one to easily visualize [Polkadot](https://polkadot.network/)'s NPoS data and make a fair selection of validator nodes. It is a [staking](https://wiki.polkadot.network/docs/learn-staking) tool for [nominators](https://wiki.polkadot.network/docs/learn-nominator) and [nomination pools admins](https://wiki.polkadot.network/docs/learn-nomination-pools).
 
 ## Problem
 
@@ -12,66 +12,16 @@ The [One Thousand Validator Program](https://wiki.polkadot.network/docs/thousand
 
 Here I propose this simple tool that allows nominating validators from the 1KV program through a [stratified synchronization algorithm](#stratified-synchronisation) that maximizes daily rewards with no big operators in the nomination. This makes the nomination healthier for the ecosystem as it decentralizes selection and helps 1KV nodes get organic nominations and build their reputation. The selection is purely objective and provides a quick and solid alternative to selecting the validators by purely looking at the commission or total stake.
 
-## Installation of R
+## Installation
 
-Polkanalyzer is a shiny app written in [R](https://posit.co/download/rstudio-desktop/). In the back end of the app, there is an R package containing all the functions necessary to analyze the data and select the validators.
-
-To install R go to the [CRAN website](https://cran.rstudio.com/) and follow the instructions to install the appropriate version for your operative system.
-
-## Clone the package
-
-Now that we installed R, we can clone the [Polkanalyzer GitHub repository](https://github.com/filippoweb3/polkanalyzer). Feel free to contribute, copy, edit, etc. **If you feel the tool is useful, give it a star to show your support!** To clone the repo, go to the folder you want to save the project on (for example, `/Git` or `/GitHub`) and run the following:
-
-```
-git clone https://github.com/filippoweb3/polkanalyzer
-```
-
-This will extract the content from the repository and save it in your project folder. If you do not have Git installed on your laptop, run `brew install git` in your terminal. If you need to install [Homebrew](https://brew.sh/) type the following in your terminal:
-
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-To update Polkanalyzer, you can run `git pull` from within the `/Polkanalyzer` folder.
-
-## Install the package
-
-Currently, the app is not hosted anywhere. The only way to use it is to run it locally on your machine. Before using the app, we must install the Polkanalyzer package in your R environment. In your terminal, type `R`; this will open the R console on your terminal. Then type
-
-```
-install.packages("devtools")
-```
-
-This will ask you to select a mirror (choose the one appropriate for your country) and then download all dependencies to install the developer tools. Then you can go within the `/polkanalyzer` folder by typing
-
-```
-setwd("YOUR PATH")
-```
-
-Where `YOUR PATH` is the path to the `/polkanalyzer` folder. When you are within the folder (your can check this by running `getwd()`) run the following command:
-
-
-```
-devtools::load_all(".")
-```
-
-This will install the Polkanalyzer package with its dependencies (it will ask you to do so, just type `Yes`) within your R environment so the app can use it later. Note that if it is the first time using R, the package installation will trigger the installation of all dependencies (i.e., other packages necessary to run the Polkanalyzer functions).
-
-## Run the app
-
-Now that Polkanalyzer is installed together with its dependencies, we can locally run the app as follows:
-
-```
-shiny::runApp('App', launch.browser = TRUE)
-```
-
-This will load the app in your default browser.
-
+- Install [docker](https://docs.docker.com/desktop/install/mac-install/) on your machine
+- Download the [polkanalyzer-app folder](https://github.com/filippoweb3/polkanalyzer-app/archive/refs/heads/main.zip)
+- Open the terminal, navigate to the app folder and run the followings commands:
+  - `docker build -t polkanalyzer-app .` (this will take some time)
+  - `docker run --rm -p 127.0.0.1:3838:3838 -it polkanalyzer-app:latest`
+  - Go to `127.0.0.1:3838` in your browser
+  
 ## What you can do
-
-### Update Data
-
-The first thing you must do when using the app is to update the data to the [latest era](https://wiki.polkadot.network/docs/learn-staking#eras-and-sessions) available. To do so, you can click the **Update** button. This will fetch the latest data from the remote repository. A GitHub action will fetch the newest data and create a daily pull request (PR). If the PR is not merged, the data will not be available for updates within the app.
 
 ### Preliminary Selection
 
@@ -89,6 +39,8 @@ On the app’s top are sliders, drop-down menus, and checkboxes to make a prelim
 - Sub-identities: Number of [sub-identities](https://wiki.polkadot.network/docs/learn-identity#sub-accounts) of an operator.
 - Sync Runs: Number of [synchronization runs](#stratified-synchronisation). Increasing the number of runs will lead to higher loading times as the app has to perform multiple synchronizations.
 - Exclude Provider: Possibility to exclude [cloud service providers](https://wiki.polkadot.network/docs/learn-staking#network-providers). Note that the number after the `#` shows the number of active validators using the provider in the last available era. Providers are ordered in descending order from the most to the least popular.
+- Exclude country: Possibility to exclude countries where nodes are located.
+- Exclude continent: Possibility to exclude continents where nodes are located.
 - Verified Identity: Choose whether the validator has a verified [identity](https://wiki.polkadot.network/docs/learn-identity). Recommended to leave this check box checked.
 
 ### World Map
@@ -108,8 +60,4 @@ The selection table shows the selected synchronized validators within each synch
 After the preliminary selection filtered out all validators that do not fit in the chosen selection criteria, we want to make sure that we can cover as many past eras as possible to maximize the chance we can get daily rewards in future eras without using big nodes that are active all the time.
 
 This is achieved through a stratified synchronization that selects validators prioritizing past era coverage. For example, if we select **Past Eras = 30** and **Eras Active = 10**, we will consider only those nodes active for a maximum of 10 eras in the past 30 eras. The synchronization algorithm picks up nodes to fill all past 30 eras; when the era coverage reaches 100%, it starts, again and again, depending on how many **Sync Runs** the user wants to perform (given there are enough validators to perform those runs). If multiple nodes are selected to cover specific eras, the one with the highest self stake is prioritized (as this is the node having the most to lose in case of a [slash](https://wiki.polkadot.network/docs/maintain-guides-validator-payout#slashing)). The results are multiple runs, each including synchronized validators covering 100% of the past 30 eras and together covering the past 30 eras multiple times (i.e., stratified synchronization). Note that the last run might not cover 100% of the past eras.
-
-## Unbounded Font
-
-The app uses the [Polkadot Unbounded font](https://unbounded.polkadot.network/). When loading the app locally, you must install the .ttf font files to see them in action.
 

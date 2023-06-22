@@ -2,7 +2,7 @@
 
 # $ docker build -t polkanalyzer-app .
 
-# $ docker run --rm -p 3838:3838 polkanalyzer-app:latest
+# $ docker run --rm -p 127.0.0.1:3838:3838 -it polkanalyzer-app:latest
 
 # Visit http://localhost:3838/
 
@@ -51,8 +51,3 @@ COPY App .
 EXPOSE 3838
 
 CMD ["R", "-e", "shiny::runApp('/home/App')"]
-
-
-#docker run -it polkanalyzer-app bash
-#ll /home
-#ll /srv/shiny-server
