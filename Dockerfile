@@ -36,7 +36,7 @@ RUN install.r shiny \
 	countrycode
 
 
-RUN echo "local(options(shiny.port = 3838, shiny.host = '127.0.0.1'))" > /usr/lib/R/etc/Rprofile.site
+RUN echo "local(options(shiny.port = 3838, shiny.host = '0.0.0.0'))" > /usr/lib/R/etc/Rprofile.site
 
 # Copy & install R package
 
