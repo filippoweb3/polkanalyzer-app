@@ -65,27 +65,27 @@ ui <- fluidPage(
 
            sliderInput(inputId = "total_stake",
                        label = "Total Stake (DOT)",
-                       min = 1.5,
+                       min = 2.4,
                        max = 3,
-                       value = 2.4, post = "M", step = 0.01, ticks = FALSE),
+                       value = 2.5, post = "M", step = 0.01, ticks = FALSE),
 
            sliderInput(inputId = "comm",
                        label = "Commission",
                        min = 0,
                        max = 20,
-                       value = 5, post = "%", step = 0.1, ticks = FALSE),
+                       value = 3, post = "%", step = 0.1, ticks = FALSE),
 
            sliderInput(inputId = "m_points",
                        label = "Avg. Era Points",
                        min = 0,
                        max = 100,
-                       value = 60, post = "K", step = 1, ticks = FALSE),
+                       value = 90, post = "K", step = 1, ticks = FALSE),
 
            sliderInput(inputId = "max_points",
                        label = "Max. Era Points",
                        min = 0,
                        max = round(max(eras_data$eras$era_points, na.rm = T)/10^3),
-                       value = 85, post = "K", step = 1, ticks = FALSE)
+                       value = 95, post = "K", step = 1, ticks = FALSE)
 
     ),
 
@@ -95,7 +95,7 @@ ui <- fluidPage(
                        label = "Faulty Events",
                        min = 0,
                        max = max(candidates$faluts, na.rm = T),
-                       value = 0, step = 1, ticks = FALSE),
+                       value = 3, step = 1, ticks = FALSE),
 
            sliderInput(inputId = "n.offline",
                        label = "Offline Events",
